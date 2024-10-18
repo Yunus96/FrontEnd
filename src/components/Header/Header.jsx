@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, LogoutBtn} from '../index'
+import {Container, Logo, LogoutBtn} from '../index'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
@@ -24,15 +24,10 @@ function Header() {
       active: !authStatus,
   },
   {
-      name: "All Posts",
-      slug: "/all-posts",
-      active: authStatus,
-  },
-  {
-      name: "Add Post",
-      slug: "/add-post",
-      active: authStatus,
-  },
+    name: "MoonShoot Q1 Project",
+    slug: "/MoonshootQ1",
+    active: true
+  }
   ]
 
 
