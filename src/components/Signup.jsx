@@ -13,13 +13,13 @@ function Signup() {
     const {register, handleSubmit} = useForm()
 
     const create = async(data) => {
+        
         setError("")
         try {
-            const userData = await authService.createAccount(data)
+            const userData = await authService.createAccount({data, navigate})
             if (userData) {
-                const userData = await authService.getCurrentUser()
-                if(userData) dispatch(login(userData));
-                navigate("/")
+
+                //navigate("/")
             }
         } catch (error) {
             setError(error.message)
@@ -49,9 +49,9 @@ function Signup() {
                 <form onSubmit={handleSubmit(create)}>
                     <div className='space-y-5'>
                         <Input
-                        label="Full Name: "
-                        placeholder="Enter your full name"
-                        {...register("name", {
+                        label="Username: "
+                        placeholder="Enter your Username"
+                        {...register("username", {
                             required: true,
                         })}
                         />

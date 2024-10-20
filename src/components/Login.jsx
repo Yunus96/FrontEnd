@@ -15,11 +15,12 @@ function Login() {
     const login = async(data) => {
         setError("")
         try {
-            const session = await authService.login(data)
+            const session = await authService.login({data, navigate})
+            
+            console.log(session)
+
             if (session) {
-                const userData = await authService.getCurrentUser()
-                if(userData) dispatch(authLogin(userData));
-                navigate("/")
+  
             }
         } catch (error) {
             setError(error.message)
@@ -50,19 +51,15 @@ function Login() {
         <form onSubmit={handleSubmit(login)} className='mt-8'>
             <div className='space-y-5'>
                 <Input
-                label="Email: "
+                label="email: "
                 placeholder="Enter your email"
                 type="email"
                 {...register("email", {
                     required: true,
-                    validate: {
-                        matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                        "Email address must be a valid address",
-                    }
                 })}
                 />
                 <Input
-                label="Password: "
+                label="password: "
                 type="password"
                 placeholder="Enter your password"
                 {...register("password", {

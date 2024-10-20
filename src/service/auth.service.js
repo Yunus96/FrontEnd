@@ -1,17 +1,31 @@
 import conf from "../conf/conf.js";
 import axios from "axios";
+
+
 export class AuthService {
-    async registerUser({ username ,email, password}){
+    async createAccount({ data, navigate }){
         try {
-            //await 
+            const response = await axios.post('http://localhost:8000/api/v1/user/register', data);
+            if (response.data.statusCode === 200) {    
+                localStorage.setItem('accessToken', response.data.data.accessToken);
+                localStorage.setItem('refreshToken', response.data.data.refreshToken)
+                navigate('/login')
+            }
         } catch (error) {
             throw error;
         }
     }
 
-    async login({email, password}){
+    async login({data, navigate}){
         try {
-            
+            console.log(data)
+            const response = await axios.post("http://localhost:8000/api/v1/user/login", data);
+            if (response.data.statusCode === 200) {
+                localStorage.setItem('accessToken', response.data.data.accessToken);
+                localStorage.setItem('refreshToken', response.data.data)
+                navigate('/analytics')
+            }
+            return response.data
         } catch (error) {
             throw error
         }
@@ -36,6 +50,27 @@ export class AuthService {
     async getEmails(){
         try {
             const response = await axios.get("http://localhost:8000/api/v1/emails/all");
+            return response.data
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async fetchEmailDetail(id){
+        try {
+            const response = await axios.get(`http://localhost:8000/api/v1/email/detail/${id}`)
+            return response.data
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+
+    async toggleFavorite(id){
+        try {
+            const response = await axios.get(`http://localhost:8000/api/v1/favourite/${id}`)
+            console.log(response.data.favourite)
+
             return response.data
         } catch (error) {
             throw error
