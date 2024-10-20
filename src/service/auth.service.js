@@ -58,7 +58,7 @@ export class AuthService {
 
     async fetchEmailDetail(id){
         try {
-            const response = await axios.get(`https://backend-1-fgxb.onrender.com//api/v1/email/detail/${id}`)
+            const response = await axios.get(`https://backend-1-fgxb.onrender.com/api/v1/email/detail/${id}`)
             return response.data
         } catch (error) {
             console.log(error)
