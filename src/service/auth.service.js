@@ -5,7 +5,7 @@ import axios from "axios";
 export class AuthService {
     async createAccount({ data, navigate }){
         try {
-            const response = await axios.post(`http://backend-1-fgxb.onrender.com/api/v1/user/register`, data);
+            const response = await axios.post(`https://backend-1-fgxb.onrender.com/api/v1/user/register`, data);
             if (response.data.statusCode === 200) {    
                 localStorage.setItem('accessToken', response.data.data.accessToken);
                 localStorage.setItem('refreshToken', response.data.data.refreshToken)
