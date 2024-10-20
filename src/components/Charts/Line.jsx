@@ -130,9 +130,9 @@ function LineChart({ data }) {
 
     return (
         <div>
-            {/* Filters 
+            {/* Filters =
             <div className="mb-4">
-               
+            
                 <label htmlFor="ageFilter" className="mr-2">Filter by Age:</label>
                 <select id="ageFilter" value={selectedAge} onChange={(e) => setSelectedAge(e.target.value)} className="border p-2">
                     <option value="">All Ages</option>
@@ -141,7 +141,6 @@ function LineChart({ data }) {
                     ))}
                 </select>
 
-        
                 <label htmlFor="genderFilter" className="ml-4 mr-2">Filter by Gender:</label>
                 <select id="genderFilter" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)} className="border p-2">
                     <option value="">All Genders</option>
@@ -170,7 +169,7 @@ function LineChart({ data }) {
                         minDate={startDate} // Prevent selecting an end date before the start date
                     />
                 </div>
-            </div>*/}
+            </div>
 
             {/* Render line chart only if filtered data exists */}
             {filteredData.length > 0 ? (

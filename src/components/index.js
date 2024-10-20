@@ -8,7 +8,6 @@ import Input from "./Input.jsx"
 import Login  from "./Login.jsx";
 import Select from "./Select.jsx"
 import Signup from "./Signup.jsx";
-import AuthLayout from "./AuthLayout.jsx"
 
 export {
     Header,
@@ -21,5 +20,4 @@ export {
     Login,
     Select,
     Signup,
-    AuthLayout
 }

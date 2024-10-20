@@ -95,7 +95,6 @@ function DataChart({ data }) {
         <div>
             {/*
             <div className="mb-4">
-                {/* Dropdown for Age Filter 
                 <label htmlFor="ageFilter" className="mr-2">Filter by Age:</label>
                 <select id="ageFilter" value={selectedAge} onChange={(e) => setSelectedAge(e.target.value)} className="border p-2">
                     <option value="">All Ages</option>
@@ -104,7 +103,6 @@ function DataChart({ data }) {
                     ))}
                 </select>
 
-                {/* Dropdown for Gender Filter 
                 <label htmlFor="genderFilter" className="ml-4 mr-2">Filter by Gender:</label>
                 <select id="genderFilter" value={selectedGender} onChange={(e) => setSelectedGender(e.target.value)} className="border p-2">
                     <option value="">All Genders</option>
@@ -112,8 +110,6 @@ function DataChart({ data }) {
                         <option key={gender} value={gender}>{gender}</option>
                     ))}
                 </select>
-
-                {/* Date Range Picker 
                 <div className="ml-4 inline-block">
                     <label className="mr-2">From:</label>
                     <DatePicker
@@ -132,7 +128,7 @@ function DataChart({ data }) {
                         className="border p-2"
                     />
                 </div>
-            </div> */}
+            </div>*/}
 
             <Bar data={chartData} options={options} />
             {daysToShow < filteredData.length && (

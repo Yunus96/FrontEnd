@@ -1,78 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Card } from '../components/index.js';
-import authService from '../service/auth.service.js';
+// Analytics.js
+import React, { useState } from 'react';
+import LineChart from "../components/Charts/Line";
+import DataChart from "../components/Charts/Bar";
+import FilterComponent from '../components/Charts/FilterComponent';
 
-function AllEmail() {
-    const [emails, setEmails] = useState([]);
-    const [filter, setFilter] = useState('All'); // Default filter is 'All'
+const data = [
+    {"Day":"4/10/2024", "Age":"15-25", "Gender":"Female", "A":993, "B":762, "C":468, "D":671, "E":788, "F":150},
+    {"Day":"5/10/2024", "Age":">25", "Gender":"Male", "A":953, "B":622, "C":638, "D":541, "E":78, "F":10},
+    {"Day":"6/10/2024", "Age":"15-25", "Gender":"Female", "A":993, "B":262, "C":968, "D":691, "E":788, "F":50},
+    {"Day":"7/10/2024", "Age":">25", "Gender":"Male", "A":95, "B":622, "C":138, "D":41, "E":948, "F":520},
+    {"Day":"8/10/2024", "Age":">25", "Gender":"Female", "A":993, "B":762, "C":468, "D":671, "E":788, "F":150},
+    {"Day":"9/10/2024", "Age":"15-25", "Gender":"Male", "A":753, "B":922, "C":238, "D":941, "E":248, "F":320},
+    {"Day":"10/10/2024", "Age":">25", "Gender":"Female", "A":993, "B":762, "C":468, "D":671, "E":788, "F":150},
+    {"Day":"11/10/2024", "Age":"15-25", "Gender":"Male", "A":253, "B":322, "C":538, "D":141, "E":148, "F":220},
+];
 
-    useEffect(() => {
-        authService.getEmails().then((email) => {
-            if (email.length > 0) {
-                setEmails(email);
-            }
-        });
-    }, []);
+function Analytics() {
+    const [selectedAge, setSelectedAge] = useState('');
+    const [selectedGender, setSelectedGender] = useState('');
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
-    // Filtered emails based on the selected filter
-    const filteredEmails = emails.filter((mail) => {
-        if (filter === 'Unread') return mail.unread;
-        if (filter === 'Read') return mail.read;
-        if (filter === 'Favorites') return mail.favourite;
-        return true; // For 'All' filter
-    });
+    // Get unique ages and genders for the dropdowns
+    const uniqueAges = [...new Set(data.map(item => item.Age))];
+    const uniqueGenders = [...new Set(data.map(item => item.Gender))];
 
     return (
-        <div className="w-full py-8">
-            {/* Filter Buttons */}
-            <div className="flex justify-start mb-4">
-                Filter By:   
-                <button 
-                    className={`mr-4 ${filter === 'Unread' ? 'text-blue-500' : 'text-gray-500'}`} 
-                    onClick={() => setFilter('Unread')}
-                >
-                    Unread
-                </button>
-                <button 
-                    className={`mr-4 ${filter === 'Read' ? 'text-blue-500' : 'text-gray-500'}`} 
-                    onClick={() => setFilter('Read')}
-                >
-                    Read
-                </button>
-                <button 
-                    className={`mr-4 ${filter === 'Favorites' ? 'text-blue-500' : 'text-gray-500'}`} 
-                    onClick={() => setFilter('Favorites')}
-                >
-                    Favorites
-                </button>
-                <button 
-                    className={`mr-4 ${filter === 'All' ? 'text-blue-500' : 'text-gray-500'}`} 
-                    onClick={() => setFilter('All')}
-                >
-                    All
-                </button>
+        <div className="flex flex-col w-full h-screen p-4 space-y-4">
+            <FilterComponent
+                selectedAge={selectedAge}
+                setSelectedAge={setSelectedAge}
+                selectedGender={selectedGender}
+                setSelectedGender={setSelectedGender}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+                uniqueAges={uniqueAges}
+                uniqueGenders={uniqueGenders}
+            />
+            <div className="w-full h-auto">
+                <DataChart data={data} filters={{ selectedAge, selectedGender, startDate, endDate }} /> {/* Bar Chart */}
             </div>
-
-            {/* Emails List */}
-            <div className="flex flex-col">
-                {filteredEmails.map((mail, index) => (
-                    <div key={index} className="p-2 m-0">
-                        <Card 
-                            id={mail.id}
-                            from={mail.from}
-                            avatar={mail.avatar}
-                            subject={mail.subject}
-                            description={mail.short_description}
-                            date={mail.date}
-                            favourite={mail.favourite}
-                            read={mail.read}
-                            unread={mail.unread}
-                        />
-                    </div>
-                ))}
+            <div className="w-full h-auto  m-10">
+                <LineChart data={data} filters={{ selectedAge, selectedGender, startDate, endDate }} /> {/* Line Chart */}
             </div>
         </div>
     );
 }
 
-export default AllEmail;
+export default Analytics;
