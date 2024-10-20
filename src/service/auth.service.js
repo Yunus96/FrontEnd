@@ -49,7 +49,7 @@ export class AuthService {
 
     async getEmails(){
         try {
-            const response = await axios.get(`https://backend-1-fgxb.onrender.com//api/v1/emails/all`);
+            const response = await axios.get(`https://backend-1-fgxb.onrender.com/api/v1/emails/all`);
             return response.data
         } catch (error) {
             throw error
