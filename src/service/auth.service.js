@@ -19,7 +19,7 @@ export class AuthService {
     async login({data, navigate}){
         try {
             console.log(data)
-            const response = await axios.post(`https://backend-1-fgxb.onrender.com//api/v1/user/login`, data);
+            const response = await axios.post(`https://backend-1-fgxb.onrender.com/api/v1/user/login`, data);
             if (response.data.statusCode === 200) {
                 localStorage.setItem('accessToken', response.data.data.accessToken);
                 localStorage.setItem('refreshToken', response.data.data)
@@ -68,7 +68,7 @@ export class AuthService {
 
     async toggleFavorite(id){
         try {
-            const response = await axios.get(`https://backend-1-fgxb.onrender.com//api/v1/favourite/${id}`)
+            const response = await axios.get(`https://backend-1-fgxb.onrender.com/api/v1/favourite/${id}`)
             console.log(response.data.favourite)
 
             return response.data
